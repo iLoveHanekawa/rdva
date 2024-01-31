@@ -7,7 +7,6 @@ jQuery(($) => {
             $(navlink).addClass('active-nav');
         }
     });
-    const debug = $('.debug');
     $(() => {
         const username = 'ck_ad713bc399f8d63da81a3583057b3e7b3d0899d4';
         const password = 'cs_ee0259074bde553ce2008e6e0cd3994f99da77d5';
@@ -23,12 +22,19 @@ jQuery(($) => {
             },
             url: 'https://etesting.space/wp-json/wc-pimwick/v1/pw-gift-cards',
             success: (res) => {
-                console.log('hi');
                 $('.debug').find('pre').text(JSON.stringify(res, null, 2));
             },
             error: (error) => {
                 console.log(error);
             }
         });
+    });
+    $('.primary-button').on('click', () => {
+        $('.modal').addClass('model-show');
+        $('.modal').removeClass('model-hide');
+    });
+    $('.cross').on('click', () => {
+        $('.modal').addClass('model-hide');
+        $('.modal').removeClass('model-show');
     });
 });
