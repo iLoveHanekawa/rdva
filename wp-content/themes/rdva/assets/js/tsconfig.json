@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+      "module": "ESNext",
+      "target": "ESNext",
+      "allowJs": true,
+      "typeRoots": ["C:\\Program Files\\nodejs\\node_modules\\@types"],
+      "esModuleInterop": true,
+      "types": ["jquery"]
+  },
+}
