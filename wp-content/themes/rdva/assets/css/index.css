@@ -36,7 +36,7 @@ a { text-decoration: none; color: black; }
 /* normalize */
 
 body { font-family: 'Poppins', sans-serif; }
-.page { display: flex; align-items: center; flex-direction: column; padding-bottom: 36px; position: relative; }
+.page { display: flex; align-items: center; flex-direction: column; padding-bottom: 72px; }
 .navbar { padding: 32px 32px; letter-spacing: 0.6px; display: flex; color: rgb(51, 51, 51); gap: 20px; font-size: 12px; text-transform: uppercase; line-height: 1.5; font-weight: 600; }
 .navbar a { transition: color 0.3s ease-in-out; }
 .navbar a:hover, .active-nav { color: rgb(51, 51, 51, 0.5); }
@@ -57,47 +57,21 @@ body { font-family: 'Poppins', sans-serif; }
 .rdva-input:hover { border: 0.8px solid rgb(21, 21, 21, 0.3); }
 .rdva-input:focus { border: 0.8px solid rgb(21, 21, 21, 0.3); box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px inset; }
 .rdva-form-add { margin-top: 80px; width: 30%; }
-.secondary-button { background-color: black; color: white; text-transform: uppercase; font-size: 12px; font-weight: 600; letter-spacing: 0.6px; line-height: 24px; padding: 10px 30px 8px 30px; border-radius: 99999rem; }
+.secondary-button, .tertiary-button { background-color: black; color: white; text-transform: uppercase; font-size: 12px; font-weight: 600; letter-spacing: 0.6px; line-height: 24px; padding: 10px 30px 8px 30px; border-radius: 99999rem; }
+.tertiary-button:hover { background-color: rgb(41, 72, 255, 0.8); }
+.tertiary-button { background-color: rgb(41, 72, 255); transition: background-color 300ms ease-in-out; }
 .secondary-button:disabled { background-color: rgb(51, 51, 51, 0.5); }
 .rdva-release { margin-top: 12px; }
 .rdva-button-container { display: flex; justify-content: center; align-items: center; }
 .footer { position: fixed; bottom: 0; width: 100%; left: 0; padding: 12px; background-color: rgb(51, 51, 51); color: rgb(204, 204, 204); display: flex; justify-content: center; font-size: 12px; }
 .debug { background-color: rgb(51, 51, 51); color: rgb(204, 204, 204); font-size: 12px; width: 60%; margin-top: 32px; padding: 20px; }
-
-.modal { position: absolute; top: 20%; left: 50%; box-shadow: 2px 2px 8px rgb(226, 226, 226); width: 40%; display: flex; flex-direction: column; padding: 40px; background-color: white; opacity: 0; transform: translate(-50%, -50%) scale(0); }
-.model-show {
-    animation: fade-in forwards 0.1s ease-in;
-}
-.model-hide {
-    animation: fade-out forwards 0.1s ease-out;
-}
-@keyframes fade-in {
-    1% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-@keyframes fade-out {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    99% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
-    }
-}
-
-.form-top {
-    display: flex;
-    justify-content: space-between;
-}
+.error { margin-bottom: 20px; color: rgb(220, 50, 50); font-size: 14px; line-height: 2; }
+.modal { z-index: 1; position: absolute; top: 300px; left: 50%; box-shadow: 2px 2px 8px rgb(226, 226, 226); width: 40%; display: flex; flex-direction: column; padding: 40px; background-color: white; opacity: 0; transform: translate(-50%, -50%) scale(0); }
+.modal-show { animation: fade-in forwards 0.1s ease-in; }
+.modal-hide { animation: fade-out forwards 0.1s ease-out; }
+@keyframes fade-in { 1% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes fade-out { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 99% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); } }
+.form-top { display: flex; justify-content: space-between; }
+.balance-container { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+.balance-valid { color: rgb(122, 255, 122); }
+.balance-invalid { color: rgb(220, 50, 50); }

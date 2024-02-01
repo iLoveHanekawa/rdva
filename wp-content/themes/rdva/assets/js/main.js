@@ -1,8 +1,14 @@
 jQuery(($) => {
     const nav = $('.navbar');
     const navlinks = $(nav).eq(0).find('a');
+    const url = new URL(window.location.href);
+    const query = url.searchParams;
+    if (query.has('modal-state') && parseInt(query.get('modal-state')) === 1) {
+        $('.modal').addClass('modal-show');
+        $('.modal').removeClass('modal-hide');
+    }
     navlinks.each((index, navlink) => {
-        if (window.location.href === 'http://localhost/rdva/' || window.location.href === 'http://localhost/rdva') {
+        if ((url.host + url.pathname) === 'localhost/rdva/' || (url.host + url.pathname) === 'localhost/rdva') {
             $(navlink).removeClass();
             $(navlink).addClass('active-nav');
         }
@@ -15,12 +21,12 @@ jQuery(($) => {
             beforeSend: () => {
                 $('.debug').find('pre').text('Loading...');
             },
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'basic ' + bsfCreds
             },
-            url: 'https://etesting.space/wp-json/wc-pimwick/v1/pw-gift-cards',
+            url: 'https://etesting.space/wp-json/wc-pimwick/v1/pw-gift-cards?number=PGDE-RZJK-H8Z8-WM3J',
             success: (res) => {
                 $('.debug').find('pre').text(JSON.stringify(res, null, 2));
             },
@@ -30,11 +36,11 @@ jQuery(($) => {
         });
     });
     $('.primary-button').on('click', () => {
-        $('.modal').addClass('model-show');
-        $('.modal').removeClass('model-hide');
+        $('.modal').addClass('modal-show');
+        $('.modal').removeClass('modal-hide');
     });
     $('.cross').on('click', () => {
-        $('.modal').addClass('model-hide');
-        $('.modal').removeClass('model-show');
+        $('.modal').addClass('modal-hide');
+        $('.modal').removeClass('modal-show');
     });
 });

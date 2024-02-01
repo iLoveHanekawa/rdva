@@ -1,0 +1,11 @@
+[01-Feb-2024 16:28:31 UTC] PHP Warning:  Undefined array key "card-number" in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 23
+[01-Feb-2024 16:28:31 UTC] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 23
+[01-Feb-2024 16:28:31 UTC] 
+[01-Feb-2024 16:28:40 UTC] PGDE-RZJK-H8Z8-WM3J
+[01-Feb-2024 16:36:42 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[01-Feb-2024 16:37:11 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[01-Feb-2024 16:37:26 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[01-Feb-2024 16:38:06 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[01-Feb-2024 16:39:48 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[01-Feb-2024 16:40:13 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[01-Feb-2024 16:42:19 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
