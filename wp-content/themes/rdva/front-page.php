@@ -44,7 +44,6 @@
                 $showApplicationForm = $active === 1;
                 unset($_SESSION['card-balance']);
                 unset($_SESSION['card-active']);
-                unset($_SESSION['card-id']);
             ?>
                 <div class="balance-container">
                     <div class="rdva-name">
@@ -61,12 +60,14 @@
                 </div>
             <?php } ?>
         </form>
-        <form>
+        <form method="POST" action="#">
         <?php if($showApplicationForm) { ?>
+            <?php wp_nonce_field('wp_rest') ?>
             <label for="customer-number" class='rdva-label'>Customer code</label>
-                <input id="customer-number" name='customer-number' class='rdva-input' type="number" required />
-                <button class="tertiary-button" type='submit'>Apply payment</button>
-            </form>
+            <input id="customer-number" name='customer-number' class='rdva-input' type="number" required />
+            <input hidden name="card-number" value="<?= esc_attr($value); ?>" />
+            <button class="tertiary-button" type='submit'>Apply payment</button>
+        </form>
         <?php } ?>
     </div>
     <div class='debug'>

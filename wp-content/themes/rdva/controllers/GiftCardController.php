@@ -1,11 +1,13 @@
 <?php
-
+require_once dirname(__DIR__) . '\models\Transactions.php';
 class GiftCardController {
+    private static $username = 'ck_ad713bc399f8d63da81a3583057b3e7b3d0899d4';
+    private static $password = 'cs_ee0259074bde553ce2008e6e0cd3994f99da77d5';
     public static function show(WP_REST_Request $request) {
-        session_start();
-        $username = 'ck_ad713bc399f8d63da81a3583057b3e7b3d0899d4';
-        $password = 'cs_ee0259074bde553ce2008e6e0cd3994f99da77d5';
-        $bsfCreds = base64_encode($username . ':' . $password);
+        if(!session_id()) {
+            session_start();
+        }
+        $bsfCreds = base64_encode(GiftCardController::$username . ':' . GiftCardController::$password);
         $reqBody = $request->get_body_params();
         $code = null;
         if(isset($reqBody['code'])) {
@@ -42,9 +44,7 @@ class GiftCardController {
     }
 
     public static function update(WP_REST_Request $request) {
-        $username = 'ck_ad713bc399f8d63da81a3583057b3e7b3d0899d4';
-        $password = 'cs_ee0259074bde553ce2008e6e0cd3994f99da77d5';
-        $bsfCreds = base64_encode($username . ':' . $password);
+        $bsfCreds = base64_encode(GiftCardController::$username . ':' . GiftCardController::$password);
         $res = wp_remote_request('https://etesting.space/wp-json/wc-pimwick/v1/pw-gift-cards/1267', [
             'method' => 'PATCH',
             'body' => json_encode([
@@ -59,7 +59,59 @@ class GiftCardController {
         wp_send_json(json_decode($body, true));
     }
 
-    public static function store() {
-
+    public static function store(WP_REST_Request $request) {
+        $bsfCreds = base64_encode(GiftCardController::$username . ':' . GiftCardController::$password);
+        $reqBody = $request->get_body_params();
+        if(!isset($reqBody['customer-number'])) {
+            $_SESSION['errors'] = [
+                'customer-number' => 'customer-number is a required field.'
+            ];
+            wp_redirect(site_url() . '?modal-state=1', 302);
+            exit();
+        }
+        else if(!isset($_SESSION['card-number'])) {
+            $_SESSION['errors'] = [
+                'card-number' => 'invalid transaction flow.'
+            ];
+            wp_redirect(site_url() . '?modal-state=1', 400);
+            exit();
+        }
+        $customerNumber = $reqBody['customer-number'];
+        $cardNumber = $_SESSION['card-number'];
+        $predicate = preg_match('/^[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/', $cardNumber);
+        if($predicate === 0) {
+            $_SESSION['errors'] = [
+                'code' => 'Invalid code. Please try again with a correct one.'
+            ];
+            wp_redirect(site_url() . '?modal-state=1', 302);
+            exit();
+        }
+        $isCustomerNumberValid = preg_match('/^\d{10}$/', $customerNumber);
+        if($isCustomerNumberValid === 0) {
+            $_SESSION['errors'] = [
+                'customer-number' => 'Invalid phone number. Please try again with a correct one.'
+            ];
+            wp_redirect(site_url() . '?modal-state=1', 302);
+            exit();
+        }
+        $req = wp_remote_get('https://etesting.space/wp-json/wc-pimwick/v1/pw-gift-cards?limit=1&number=' . $cardNumber, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . $bsfCreds
+            ]
+        ]);
+        $body = json_decode(wp_remote_retrieve_body($req), true);
+        $card = $body[0];
+        if(!isset($card['balance'])) {
+            $_SESSION['errors'] = [
+                'internal-server-error' => 'sorry something wen\'t wrong.'
+            ];
+            wp_redirect(site_url() . '?modal-state=1', 500);
+            exit();
+        }
+        // can add additional logic to check if balance is less than amount.
+        $balance = $card['balance'];
+        Transaction::create($customerNumber, $cardNumber, $balance);
+        unset($_SESSION['card-number']);
     }
 }

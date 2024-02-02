@@ -1,11 +1,25 @@
-[01-Feb-2024 16:28:31 UTC] PHP Warning:  Undefined array key "card-number" in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 23
-[01-Feb-2024 16:28:31 UTC] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 23
-[01-Feb-2024 16:28:31 UTC] 
-[01-Feb-2024 16:28:40 UTC] PGDE-RZJK-H8Z8-WM3J
-[01-Feb-2024 16:36:42 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
-[01-Feb-2024 16:37:11 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
-[01-Feb-2024 16:37:26 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
-[01-Feb-2024 16:38:06 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
-[01-Feb-2024 16:39:48 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
-[01-Feb-2024 16:40:13 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
-[01-Feb-2024 16:42:19 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[02-Feb-2024 03:13:50 UTC] PHP Warning:  require_once(): http:// wrapper is disabled in the server configuration by allow_url_include=0 in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php on line 2
+[02-Feb-2024 03:13:50 UTC] PHP Warning:  require_once(http://localhost/rdva/wp-content/themes/rdva/models/Transactions.php): Failed to open stream: no suitable wrapper could be found in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php on line 2
+[02-Feb-2024 03:13:50 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'http://localhost/rdva/wp-content/themes/rdva/models/Transactions.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php:2
+Stack trace:
+#0 C:\xampp\htdocs\rdva\wp-content\themes\rdva\functions.php(3): require_once()
+#1 C:\xampp\htdocs\rdva\wp-settings.php(611): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\rdva\wp-config.php(98): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\rdva\wp-load.php(50): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\rdva\wp-blog-header.php(13): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\rdva\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php on line 2
+[02-Feb-2024 03:14:15 UTC] PHP Warning:  require_once(C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers/models/Transactions.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php on line 2
+[02-Feb-2024 03:14:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers/models/Transactions.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php:2
+Stack trace:
+#0 C:\xampp\htdocs\rdva\wp-content\themes\rdva\functions.php(3): require_once()
+#1 C:\xampp\htdocs\rdva\wp-settings.php(611): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\rdva\wp-config.php(98): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\rdva\wp-load.php(50): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\rdva\wp-blog-header.php(13): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\rdva\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\rdva\wp-content\themes\rdva\controllers\GiftCardController.php on line 2
+[02-Feb-2024 03:14:42 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
+[02-Feb-2024 03:42:37 UTC] PHP Warning:  Undefined variable $showApplicationForm in C:\xampp\htdocs\rdva\wp-content\themes\rdva\front-page.php on line 65
