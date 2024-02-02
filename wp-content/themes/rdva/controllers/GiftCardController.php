@@ -117,10 +117,11 @@ class GiftCardController {
             exit();
         }
 
-        // usually there would be a product or card here with amount
+        // usually there would be a product or cart here with amount
         $amount = -300;
         $balance = $card['balance'];
         if($amount < 0 && $balance < abs($amount)) {
+            unset($_SESSION['card-number']);
             $_SESSION['errors'] = [
                 'code' => 'Insufficient balance.'
             ];

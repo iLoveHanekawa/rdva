@@ -25,7 +25,7 @@
                     $value = esc_attr($_SESSION['card-number']);
                 }
             ?>
-            <input id="code" name='code' class='rdva-input' value="<?= $value; ?>" type="text" required />
+            <input id="code" name='code' class='rdva-input' value="<?= esc_attr($value); ?>" type="text" required />
             <?php 
                 if(isset($_SESSION['errors'])) {
                     $errors = $_SESSION['errors'];
