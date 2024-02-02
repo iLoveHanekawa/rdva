@@ -14,9 +14,9 @@ class Transaction {
     */
     private $balance;
     private function __construct(string $customerNumber, string $cardNumber, float $balance) {
-        $this->cardNumber = $cardNumber;
-        $this->customerNumber = $customerNumber;
-        $this->balance = $balance;
+        $this->cardNumber = esc_sql(trim($cardNumber));
+        $this->customerNumber = esc_sql(trim($customerNumber));
+        $this->balance = esc_sql(trim($balance));
     }
     private function getCardNumber() {
         return $this->cardNumber;
