@@ -12,4 +12,4 @@ $hooks->addCustomPostType('Transaction', 'Transactions');
 // routes
 $hooks->addRestRoute("POST", 'api/v1/card', 'get', [GiftCardController::class, 'show']);
 $hooks->addRestRoute("GET", 'api/v1/card', 'add', [GiftCardController::class, 'update']);
-$hooks->addRestRoute("GET", 'api/v1/card', 'charge', [GiftCardController::class, 'store']);
+$hooks->addRestRoute("POST", 'api/v1/card', 'charge', [GiftCardController::class, 'store']);

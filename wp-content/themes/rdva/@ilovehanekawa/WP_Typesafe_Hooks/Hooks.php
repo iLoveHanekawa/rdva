@@ -34,10 +34,10 @@ class Hooks {
         });
     }
 
-    public function addRestRoute(string $method, string $route, string $endpoint, array $callback, callable $permissionCallback = null) {
+    public function addRestRoute(string $method, string $namespace, string $endpoint, array $callback, callable $permissionCallback = null) {
         if(!$permissionCallback) $permissionCallback = function() { return '__return_true'; };
-        add_action('rest_api_init', function () use(&$method, &$callback, $route, &$endpoint, $permissionCallback){
-            register_rest_route($route, '/' . $endpoint, array(
+        add_action('rest_api_init', function () use(&$method, &$callback, $namespace, &$endpoint, $permissionCallback){
+            register_rest_route($namespace, '/' . $endpoint, array(
                 'methods' => $method,
                 'callback' => function (WP_REST_Request $request) use(&$callback) {
                     call_user_func($callback, $request);

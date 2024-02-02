@@ -38,7 +38,7 @@ class Transaction {
         ]);
         add_post_meta( $postId, 'customer_number', $newTransaction->getCustomerNumber());
         add_post_meta( $postId, 'card_number', $newTransaction->getCardNumber());
-        add_post_meta( $postId, 'balance', $newTransaction->balance);
+        add_post_meta( $postId, 'balance', $newTransaction->getBalance());
         return $newTransaction;
     }
 }

@@ -60,12 +60,18 @@ class GiftCardController {
     }
 
     public static function store(WP_REST_Request $request) {
+        if(!session_id()) {
+            session_start();
+        }
         $bsfCreds = base64_encode(GiftCardController::$username . ':' . GiftCardController::$password);
         $reqBody = $request->get_body_params();
+        error_log(json_encode($_SESSION));
+        error_log($reqBody['customer-number']);
         if(!isset($reqBody['customer-number'])) {
             $_SESSION['errors'] = [
                 'customer-number' => 'customer-number is a required field.'
             ];
+            error_log('number not set');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
@@ -73,7 +79,8 @@ class GiftCardController {
             $_SESSION['errors'] = [
                 'card-number' => 'invalid transaction flow.'
             ];
-            wp_redirect(site_url() . '?modal-state=1', 400);
+            error_log('card number not set');
+            wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
         $customerNumber = $reqBody['customer-number'];
@@ -81,16 +88,9 @@ class GiftCardController {
         $predicate = preg_match('/^[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/', $cardNumber);
         if($predicate === 0) {
             $_SESSION['errors'] = [
-                'code' => 'Invalid code. Please try again with a correct one.'
+                'card-number' => 'Invalid card number. Please try again with a correct one.'
             ];
-            wp_redirect(site_url() . '?modal-state=1', 302);
-            exit();
-        }
-        $isCustomerNumberValid = preg_match('/^\d{10}$/', $customerNumber);
-        if($isCustomerNumberValid === 0) {
-            $_SESSION['errors'] = [
-                'customer-number' => 'Invalid phone number. Please try again with a correct one.'
-            ];
+            error_log('invalid card number');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
@@ -106,12 +106,48 @@ class GiftCardController {
             $_SESSION['errors'] = [
                 'internal-server-error' => 'sorry something wen\'t wrong.'
             ];
-            wp_redirect(site_url() . '?modal-state=1', 500);
+            error_log('invalid balance');
+            wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
-        // can add additional logic to check if balance is less than amount.
+        error_log(json_encode($body));
+        $isCustomerNumberValid = preg_match('/^\d{10}$/', $customerNumber);
+        if($isCustomerNumberValid === 0) {
+            $_SESSION['errors'] = [
+                'customer-number' => 'Invalid phone number. Please try again with a correct one.'
+            ];
+            $_SESSION['card-active'] = intVal($card['active']);
+            $_SESSION['card-balance'] = floatVal($card['balance']);
+            $_SESSION['card-id'] = intVal($card['pimwick_gift_card_id']);
+            $_SESSION['card-number'] = $card['number'];
+            error_log('invalid phone number');
+            wp_redirect(site_url() . '?modal-state=1', 302);
+            exit();
+        }
+
+        // usually there would be a product or card here with amount
+        $amount = -300;
         $balance = $card['balance'];
-        Transaction::create($customerNumber, $cardNumber, $balance);
+        if($amount < 0 && $balance < abs($amount)) {
+            $_SESSION['errors'] = [
+                'code' => 'Insufficient balance.'
+            ];
+            wp_redirect(site_url() . '?modal-state=1', 302);
+            exit();
+        }
         unset($_SESSION['card-number']);
+        Transaction::create($customerNumber, $cardNumber, $balance);
+        $pwres = wp_remote_request('https://etesting.space/wp-json/wc-pimwick/v1/pw-gift-cards/' . $card['pimwick_gift_card_id'], [
+            'method' => 'PATCH',
+            'body' => json_encode([
+                "amount" => $amount
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . $bsfCreds
+            ]
+        ]);
+        $pwBody = wp_remote_retrieve_body($pwres);
+        wp_send_json(json_decode($pwBody), true);
     }
 }
