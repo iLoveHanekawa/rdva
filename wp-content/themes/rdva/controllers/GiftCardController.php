@@ -65,13 +65,10 @@ class GiftCardController {
         }
         $bsfCreds = base64_encode(GiftCardController::$username . ':' . GiftCardController::$password);
         $reqBody = $request->get_body_params();
-        error_log(json_encode($_SESSION));
-        error_log($reqBody['customer-number']);
         if(!isset($reqBody['customer-number'])) {
             $_SESSION['errors'] = [
                 'customer-number' => 'customer-number is a required field.'
             ];
-            error_log('number not set');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
@@ -79,7 +76,6 @@ class GiftCardController {
             $_SESSION['errors'] = [
                 'card-number' => 'invalid transaction flow.'
             ];
-            error_log('card number not set');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
@@ -90,7 +86,6 @@ class GiftCardController {
             $_SESSION['errors'] = [
                 'card-number' => 'Invalid card number. Please try again with a correct one.'
             ];
-            error_log('invalid card number');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
@@ -106,11 +101,9 @@ class GiftCardController {
             $_SESSION['errors'] = [
                 'internal-server-error' => 'sorry something wen\'t wrong.'
             ];
-            error_log('invalid balance');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
-        error_log(json_encode($body));
         $isCustomerNumberValid = preg_match('/^\d{10}$/', $customerNumber);
         if($isCustomerNumberValid === 0) {
             $_SESSION['errors'] = [
@@ -120,7 +113,6 @@ class GiftCardController {
             $_SESSION['card-balance'] = floatVal($card['balance']);
             $_SESSION['card-id'] = intVal($card['pimwick_gift_card_id']);
             $_SESSION['card-number'] = $card['number'];
-            error_log('invalid phone number');
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }

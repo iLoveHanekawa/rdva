@@ -66,7 +66,6 @@
             <label for="customer-number" class='rdva-label'>Customer number</label>
             <input id="customer-number" name='customer-number' class='rdva-input' type="tel" required />
             <?php 
-                error_log(json_encode($_SESSION));
                 if(isset($_SESSION['errors'])) {
                     $errors = $_SESSION['errors'];
                     if(isset($errors['customer-number'])) { 
