@@ -79,7 +79,7 @@ class GiftCardController {
             wp_redirect(site_url() . '?modal-state=1', 302);
             exit();
         }
-        $customerNumber = $reqBody['customer-number'];
+        $customerNumber = esc_sql(trim($reqBody['customer-number']));
         $cardNumber = $_SESSION['card-number'];
         $predicate = preg_match('/^[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/', $cardNumber);
         if($predicate === 0) {
